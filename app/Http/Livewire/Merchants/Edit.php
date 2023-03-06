@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class Edit extends Component implements HasForms
@@ -85,5 +86,13 @@ class Edit extends Component implements HasForms
 
             TextInput::make('websiteUrl'),
         ];
+    }
+
+    protected function onValidationError(ValidationException $exception): void
+    {
+        Notification::make()
+            ->title($exception->getMessage())
+            ->danger()
+            ->send();
     }
 }
