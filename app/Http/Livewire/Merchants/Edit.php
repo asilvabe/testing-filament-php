@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Merchants;
 
 use App\Models\Country;
-use App\Models\DocumentType;
 use App\Models\Merchant;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -69,6 +68,11 @@ class Edit extends Component implements HasForms
 
             Select::make('document_type_id')
                 ->label('Document type')
+                ->placeholder(function (callable $get) {
+                    $country = Country::find($get('country_id'));
+
+                    return isset($country) ? 'Select an option' : 'Select a country';
+                })
                 ->relationship('documentType', 'name')
                 ->options(function (callable $get) {
                     $country = Country::find($get('country_id'));
