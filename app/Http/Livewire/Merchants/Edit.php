@@ -73,11 +73,7 @@ class Edit extends Component implements HasForms
                 ->options(function (callable $get) {
                     $country = Country::find($get('country_id'));
 
-                    if (is_null($country)) {
-                        return DocumentType::all()->pluck('name', 'id');
-                    }
-
-                    return $country->documentTypes->pluck('name', 'id');
+                    return isset($country) ? $country->documentTypes->pluck('name', 'id') : [];
                 })
                 ->requiredWith('document'),
 
