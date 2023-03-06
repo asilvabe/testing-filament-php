@@ -1,6 +1,6 @@
 <div class="flex justify-center mt-24">
     <div class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
-        <form wire:submit.prevent="submit">
+        <form wire:submit.prevent="update">
             {{ $this->form }}
 
             <div class="flex space-x-2 mt-5">

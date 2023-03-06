@@ -25,9 +25,9 @@ class Edit extends Component implements HasForms
             'name' => $this->merchant->name,
             'brand' => $this->merchant->brand,
             'country_id' => $this->merchant->country_id,
-            'documentTypeId' => $this->merchant->document_type_id,
+            'document_type_id' => $this->merchant->document_type_id,
             'document' => $this->merchant->document,
-            'websiteUrl' => $this->merchant->website_url,
+            'website_url' => $this->merchant->website_url,
         ]);
     }
 
@@ -41,7 +41,7 @@ class Edit extends Component implements HasForms
         return $this->merchant;
     }
 
-    public function submit(): void
+    public function update(): void
     {
         $this->merchant->update(
             $this->form->getState(),
@@ -61,17 +61,17 @@ class Edit extends Component implements HasForms
 
             TextInput::make('brand'),
 
-            Select::make('countryId')
+            Select::make('country_id')
                 ->label('Country')
                 ->relationship('country', 'name')
                 ->reactive()
-                ->afterStateUpdated(fn (callable $set) => $set('documentTypeId', null)),
+                ->afterStateUpdated(fn (callable $set) => $set('document_type_id', null)),
 
-            Select::make('documentTypeId')
+            Select::make('document_type_id')
                 ->label('Document type')
                 ->relationship('documentType', 'name')
                 ->options(function (callable $get) {
-                    $country = Country::find($get('countryId'));
+                    $country = Country::find($get('country_id'));
 
                     if (is_null($country)) {
                         return DocumentType::all()->pluck('name', 'id');
@@ -82,9 +82,9 @@ class Edit extends Component implements HasForms
                 ->requiredWith('document'),
 
             TextInput::make('document')
-                ->requiredWith('documentTypeId'),
+                ->requiredWith('document_type_id'),
 
-            TextInput::make('websiteUrl'),
+            TextInput::make('website_url'),
         ];
     }
 
