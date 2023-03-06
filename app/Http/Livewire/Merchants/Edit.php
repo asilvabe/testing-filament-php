@@ -55,13 +55,17 @@ class Edit extends Component implements HasForms
     protected function getFormSchema(): array
     {
         return [
-            TextInput::make('name')->required(),
+            TextInput::make('name')
+                ->required(),
+
             TextInput::make('brand'),
+
             Select::make('countryId')
                 ->label('Country')
                 ->relationship('country', 'name')
                 ->reactive()
                 ->afterStateUpdated(fn (callable $set) => $set('documentTypeId', null)),
+
             Select::make('documentTypeId')
                 ->label('Document type')
                 ->relationship('documentType', 'name')
@@ -75,7 +79,10 @@ class Edit extends Component implements HasForms
                     return $country->documentTypes->pluck('name', 'id');
                 })
                 ->requiredWith('document'),
-            TextInput::make('document')->requiredWith('documentTypeId'),
+
+            TextInput::make('document')
+                ->requiredWith('documentTypeId'),
+
             TextInput::make('websiteUrl'),
         ];
     }
