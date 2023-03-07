@@ -13,6 +13,7 @@ class MerchantFactory extends Factory
             'brand' => $this->faker->company,
             'website_url' => $this->faker->domainName,
             'country_id' => 1,
+            'increment_type' => $this->faker->randomElement(['SMLMV', 'IPC']),
         ];
     }
 }

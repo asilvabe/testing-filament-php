@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('document_type_id')->nullable()->constrained('document_types');
             $table->string('document', 30)->nullable();
             $table->string('website_url', 150)->nullable();
+            $table->enum('size', ['MICRO', 'SMALL', 'MEDIUM', 'BIG'])->nullable();
+            $table->enum('increment_type', ['SMLMV', 'IPC']);
+            $table->timestamp('disabled_at')->nullable();
             $table->timestamps();
         });
     }
