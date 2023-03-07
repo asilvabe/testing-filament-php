@@ -16,7 +16,7 @@
         @stack('scripts')
     </head>
 
-    <body class="antialiased">
+    <body class="antialiased bg-slate-400">
         {{ $slot }}
 
         @livewire('notifications')
