@@ -10,6 +10,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
@@ -19,8 +20,12 @@ class Edit extends Component implements HasForms
 
     public Merchant $merchant;
 
+    public Collection $countries;
+
     public function mount(): void
     {
+        $this->countries = Country::all();
+
         $this->form->fill([
             'name' => $this->merchant->name,
             'brand' => $this->merchant->brand,
@@ -73,15 +78,17 @@ class Edit extends Component implements HasForms
             Select::make('document_type_id')
                 ->label('Document type')
                 ->placeholder(function (callable $get) {
-                    $country = Country::find($get('country_id'));
-
-                    return isset($country) ? 'Select an option' : 'Select a country';
+                    return empty($get('country_id')) ? 'Select a country' : 'Select an option';
                 })
                 ->relationship('documentType', 'name')
                 ->options(function (callable $get) {
-                    $country = Country::find($get('country_id'));
+                    if (empty($get('country_id'))){
+                        return [];
+                    }
 
-                    return isset($country) ? $country->documentTypes->pluck('name', 'id') : [];
+                    $country = $this->countries->where('id', $get('country_id'))->first();
+
+                    return $country->documentTypes->pluck('name', 'id');
                 })
                 ->requiredWith('document'),
 
