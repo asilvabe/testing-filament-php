@@ -104,7 +104,8 @@ class Edit extends Component implements HasForms
                     'SMALL' => 'Small company (<50 employees)',
                     'MEDIUM' => 'Medium company (<250 employees)',
                     'BIG' => 'Big company (>=250 employees)',
-                ]),
+                ])
+                ->searchable(),
 
             Select::make('increment_type')
                 ->label('Increment type')
