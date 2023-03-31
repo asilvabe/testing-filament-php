@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Merchants;
 
 use App\Models\Country;
 use App\Models\Merchant;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -64,6 +65,8 @@ class Edit extends Component implements HasForms
     protected function getFormSchema(): array
     {
         return [
+            DatePicker::make('date'),
+
             TextInput::make('name')
                 ->required(),
 

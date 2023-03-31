@@ -1,5 +1,5 @@
 <div class="flex flex-col place-items-center">
-    <div class="p-6 rounded-lg shadow-lg bg-white w-full mt-24">
+    <div class="p-6 rounded-lg shadow-lg bg-white w-auto mt-24">
         <form wire:submit.prevent="update">
             {{ $this->form }}
 
